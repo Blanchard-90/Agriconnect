@@ -15,11 +15,15 @@ class RegisterController extends Controller
 {
     public function create(): View
     {
+        $this->ensureRegistrationIsEnabled();
+
         return view('auth.register');
     }
 
     public function choose(Request $request): RedirectResponse
     {
+        $this->ensureRegistrationIsEnabled();
+
         $data = $request->validate([
             'role' => ['required', Rule::in(['vendeur', 'acheteur'])],
         ]);
@@ -31,6 +35,8 @@ class RegisterController extends Controller
 
     public function form(Request $request): View|RedirectResponse
     {
+        $this->ensureRegistrationIsEnabled();
+
         $role = $request->session()->get('inscription_role');
 
         if (! in_array($role, ['vendeur', 'acheteur'], true)) {
@@ -45,6 +51,8 @@ class RegisterController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $this->ensureRegistrationIsEnabled();
+
         $role = $request->session()->get('inscription_role');
         $quartiers = array_values(array_filter(Lieux::noms(), fn (string $nom) => $nom !== 'Kpalimé'));
 
@@ -101,5 +109,10 @@ class RegisterController extends Controller
         return redirect()->to($user->espaceRoute())->with('success', $role === 'vendeur'
             ? 'Compte créé. Votre photo et votre pièce sont envoyées à l’administrateur pour le badge. Vous pouvez déjà publier un stock.'
             : 'Compte créé. Vous pouvez publier tout de suite. La vérification d’identité est un badge, elle ne bloque pas la vente.');
+    }
+
+    private function ensureRegistrationIsEnabled(): void
+    {
+        abort_unless(config('app.registration_enabled'), 404);
     }
 }

@@ -10,7 +10,9 @@
                 <a class="btn btn-small" href="{{ auth()->user()->espaceRoute() }}">Mon espace</a>
             @else
                 <a href="{{ route('login') }}">Connexion</a>
-                <a class="btn btn-small" href="{{ route('register') }}">Inscription</a>
+                @if (config('app.registration_enabled'))
+                    <a class="btn btn-small" href="{{ route('register') }}">Inscription</a>
+                @endif
             @endauth
         </nav>
     </header>

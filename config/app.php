@@ -52,7 +52,11 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', env('RENDER_EXTERNAL_URL', 'http://localhost')),
+
+    'read_only_preview' => env('APP_READ_ONLY_PREVIEW', false),
+
+    'registration_enabled' => env('REGISTRATION_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------

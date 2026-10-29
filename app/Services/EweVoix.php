@@ -48,6 +48,10 @@ class EweVoix
             return;
         }
 
+        if (PHP_OS_FAMILY !== 'Windows') {
+            throw new RuntimeException('Le service de voix éwé est indisponible. Configurez EWE_VOIX_URL vers un service de voix accessible.');
+        }
+
         $occupe = @fsockopen('127.0.0.1', (int) (parse_url($this->url(), PHP_URL_PORT) ?: 8765), $errno, $err, 0.3);
         if (is_resource($occupe)) {
             fclose($occupe);

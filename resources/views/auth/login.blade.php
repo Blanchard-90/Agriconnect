@@ -18,6 +18,13 @@
             </div>
         </aside>
         <div class="auth-panel">
+            @if (config('app.read_only_preview'))
+                <div class="auth-card">
+                    <p class="hkicker">Aperçu public</p>
+                    <h2>Mode lecture seule</h2>
+                    <p class="auth-lead">La connexion et les modifications sont désactivées sur cette prévisualisation.</p>
+                </div>
+            @else
             <form class="auth-card" method="POST" action="{{ route('login') }}">
                 @csrf
                 <p class="hkicker">Connexion</p>
@@ -53,8 +60,11 @@
                     <button type="button" class="demo-row" data-telephone="90033445" data-password="password"><b>A</b><span>Ama Lawson<small>Acheteuse · 90033445</small></span></button>
                     <button type="button" class="demo-row" data-telephone="90000001" data-password="password"><b>A</b><span>Awa Mensah<small>Administratrice · 90000001</small></span></button>
                 </div>
-                <p class="form-foot">Pas encore de compte ? <a href="{{ route('register') }}">S’inscrire</a></p>
+                @if (config('app.registration_enabled'))
+                    <p class="form-foot">Pas encore de compte ? <a href="{{ route('register') }}">S’inscrire</a></p>
+                @endif
             </form>
+            @endif
         </div>
     </section>
 @endsection

@@ -93,3 +93,11 @@ php artisan serve
 ```
 
 Les tests utilisent SQLite en mémoire. L’extension GD n’est pas requise.
+
+## Prévisualisation en ligne avec Render
+
+Le dépôt contient un `Dockerfile` et un Blueprint `render.yaml` pour créer une prévisualisation Render avec PostgreSQL. Depuis le tableau de bord Render, crée un **Blueprint** lié à ce dépôt et confirme la création des deux services. Render construit l’image, exécute les migrations et fournit l’adresse publique du site.
+
+La configuration par défaut est une **prévisualisation publique en lecture seule** : elle ne crée pas les comptes de démonstration (notamment le compte administrateur partagé dans ce README), bloque les requêtes de modification et désactive les inscriptions. Le catalogue reste vide jusqu’à ce que des données de démonstration sûres soient préparées. Pour réactiver les modifications ou les inscriptions, il faut d’abord mettre en place des comptes et données dédiés, une politique de confidentialité et un stockage persistant pour les images et pièces d’identité.
+
+Les services Render gratuits conviennent uniquement à une démo : le site peut s’endormir après une période d’inactivité, le système de fichiers est éphémère, et une base PostgreSQL gratuite expire après 30 jours. Les images téléversées et fichiers locaux ne sont donc pas conservés après un redémarrage. Passe à des offres avec stockage et sauvegardes avant tout usage réel. La voix éwé n’est pas démarrée dans le conteneur ; elle nécessite un service séparé et une variable `EWE_VOIX_URL` accessible.

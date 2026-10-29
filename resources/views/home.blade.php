@@ -175,13 +175,17 @@
             <p class="hkicker">Vendeurs</p>
             <h2>Écoulez un stock avant qu’il ne se perde.</h2>
             <p>Déclarez le produit, la quantité et la fraîcheur. Le prix recommandé laisse le dernier mot au vendeur, puis à l’administrateur.</p>
-            <a class="hbtn hbtn-solid" href="{{ route('register') }}">Devenir vendeur</a>
+            @if (config('app.registration_enabled'))
+                <a class="hbtn hbtn-solid" href="{{ route('register') }}">Devenir vendeur</a>
+            @endif
         </article>
         <article id="acheteurs">
             <p class="hkicker">Acheteurs</p>
             <h2>Collectez près de chez vous.</h2>
             <p>Les offres urgentes du quartier apparaissent en premier. La quantité réservée est bloquée jusqu’au rendez-vous.</p>
-            <a class="hbtn hbtn-line" href="{{ route('register') }}">Devenir acheteur</a>
+            @if (config('app.registration_enabled'))
+                <a class="hbtn hbtn-line" href="{{ route('register') }}">Devenir acheteur</a>
+            @endif
         </article>
         <article id="propos">
             <p class="hkicker">À propos</p>

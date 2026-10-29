@@ -34,7 +34,9 @@
                         <a class="hbtn hbtn-solid" href="{{ auth()->user()->espaceRoute() }}">Mon espace</a>
                     @else
                         <a @class(['hbtn hbtn-line', 'is-on' => request()->routeIs('login')]) href="{{ route('login') }}">Se connecter</a>
-                        <a @class(['hbtn hbtn-solid', 'is-on' => request()->routeIs('register')]) href="{{ route('register') }}">S’inscrire</a>
+                        @if (config('app.registration_enabled'))
+                            <a @class(['hbtn hbtn-solid', 'is-on' => request()->routeIs('register')]) href="{{ route('register') }}">S’inscrire</a>
+                        @endif
                     @endauth
                 </div>
             </div>
