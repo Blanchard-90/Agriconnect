@@ -17,6 +17,10 @@ services:
     envVars:
       - key: APP_ENV
         value: production
+      - key: APP_URL
+        value: https://agriconnect-preview.onrender.com
+      - key: ASSET_URL
+        value: https://agriconnect-preview.onrender.com
       - key: APP_DEBUG
         value: "false"
       - key: APP_KEY
